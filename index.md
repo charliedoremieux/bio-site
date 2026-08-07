@@ -48,7 +48,7 @@ eml.removeAttribute('class');
 
 ## Reading Groups
 - **Rutgers Philosophy of Language**
-    - [(Fall 2026)](reading-groups/phil-language/phil-language.md)
+    - Organizer, [Fall 2026](reading-groups/phil-language/phil-language.md)
 
 
 
