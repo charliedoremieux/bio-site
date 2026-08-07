@@ -15,11 +15,11 @@
 
 <figure class="gl-page-background gl-float-right gl-image-box" style="text-align: center;"><img src="assets/images/hero-image.jpg" alt="A photo of J. Doe" width="160" height="160" style="max-width: 160px;" /></figure>
 
-I’m a second-year Ph.D. student in unknown discipline, advised by [unknown professor](https://example.com/). I am interested in some unknown specialized sub-area.
+I’m a second-year Ph.D. student in Philosophy at [Rutgers University](https://philosophy.rutgers.edu/). Presently, I am interested in Philosophy of Language and Metaphysics.
 
-Prior to joining [unknown current university](https://example.com/), I obtained my bachelor’s degree from [unknown previous university](https://example.com/).
+Prior to joining Rutgers, I studied Applied Mathematics and Philosophy from [The University of Colorado, Boulder](https://www.colorado.edu/)).
 
-I can be reached at <span id="_eml" class="gl-eml">someone at example dot com</span>.
+I can be reached at <span id="_eml" class="gl-eml">charlie.doremieux at rutgers dot edu</span>.
 
 ```bio-remove
 Below we use a simple mechanism to mitigate email address reaping.
