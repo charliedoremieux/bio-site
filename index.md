@@ -19,11 +19,8 @@ I’m a second-year Ph.D. student in Philosophy at [Rutgers University](https://
 
 Prior to joining Rutgers, I loafed around Boulder, CO. Before then, I studied Applied Mathematics and Philosophy at [The University of Colorado, Boulder](https://www.colorado.edu/).
 
-I can be reached at <span id="_eml" class="gl-eml">charlie dot doremieux at rutgers dot edu</span>.
+I can be reached at <span id="_eml" class="gl-eml">someone at example dot com</span>.
 
-```bio-remove
-Below we use a simple mechanism to mitigate email address reaping.
-Change the encoding for your own email address.
 ```bio-remove
 Below we use a simple mechanism to mitigate email address reaping.
 Change the encoding for your own email address.
