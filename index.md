@@ -42,7 +42,6 @@ eml.removeAttribute('class');
 </script>
 [bio]-->
 
-@comment{
 
 ## Building Blocks
 
@@ -128,4 +127,3 @@ see "builder/marked.0.3.6/bibtex-service.js" line 109.
 }
 ```
 
-}
