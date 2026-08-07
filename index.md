@@ -42,86 +42,90 @@ eml.removeAttribute('class');
 </script>
 [bio]-->
 
-% ## Building Blocks
+@comment{
 
-% ```blog-bib
+## Building Blocks
 
-% @comment
-% {
-% Use #bibitem_Venue_Key to refer to "Venue:Key".
+```blog-bib
 
-% It is possible to have multiple BibTeX blocks, which will be rendered independently. For example, you might want to have one block for each of "Publications", "Pre-prints", and "Manuscripts".
+@comment
+{
+Use #bibitem_Venue_Key to refer to "Venue:Key".
 
-% To support more information links (e.g., add "slides" or "pdf" links),
-% see "builder/marked.0.3.6/bibtex-service.js" line 109.
-% }
+It is possible to have multiple BibTeX blocks, which will be rendered independently. For example, you might want to have one block for each of "Publications", "Pre-prints", and "Manuscripts".
 
-% @online{GitHub:BibTeXTS,
-%   author = {Ji Luo},
-%   title = {{B}ib{T}e{X}-{TS}:
-%     General-Purpose Format-Preserving {{\BibTeX}} Parser
-%     in {T}ype{S}cript ({J}ava{S}cript)},
+To support more information links (e.g., add "slides" or "pdf" links),
+see "builder/marked.0.3.6/bibtex-service.js" line 109.
+}
 
-%   biosite_url = {https://github.com/GeeLaw/bibtex-ts},
-%   biosite_venue = {GitHub},
-%   biosite_slides = {#},
-% }
+@online{GitHub:BibTeXTS,
+  author = {Ji Luo},
+  title = {{B}ib{T}e{X}-{TS}:
+    General-Purpose Format-Preserving {{\BibTeX}} Parser
+    in {T}ype{S}cript ({J}ava{S}cript)},
 
-% @online{GitHub:Marked,
-%   author = {Christopher Jeffrey and others},
-%   title = {Marked: A {M}arkdown Parser and Compiler Built for Speed},
+  biosite_url = {https://github.com/GeeLaw/bibtex-ts},
+  biosite_venue = {GitHub},
+  biosite_slides = {#},
+}
 
-%   biosite_url = {https://github.com/markedjs/marked},
-%   biosite_venue = {GitHub},
-%   biosite_demo = {https://marked.js.org/demo/},
-% }
+@online{GitHub:Marked,
+  author = {Christopher Jeffrey and others},
+  title = {Marked: A {M}arkdown Parser and Compiler Built for Speed},
 
-% @online{GitHub:KaTeX,
-%   author = {Khan Academy and others},
-%   title = "{{\KaTeX}}: Fast Math Typesetting for the Web",
+  biosite_url = {https://github.com/markedjs/marked},
+  biosite_venue = {GitHub},
+  biosite_demo = {https://marked.js.org/demo/},
+}
 
-%   biosite_url = {https://github.com/KaTeX/KaTeX},
-%   biosite_venue = {GitHub},
-%   biosite_demo = {https://katex.org/},
-% }
+@online{GitHub:KaTeX,
+  author = {Khan Academy and others},
+  title = "{{\KaTeX}}: Fast Math Typesetting for the Web",
 
-% ```
+  biosite_url = {https://github.com/KaTeX/KaTeX},
+  biosite_venue = {GitHub},
+  biosite_demo = {https://katex.org/},
+}
 
-% ## Accessibility Examples
+```
 
-% ```blog-bib
-% @misc{Example1,
-%   author = {First Author and Second Author},
-%   title = {Title without Equation}
-% }
+## Accessibility Examples
 
-% @misc{Example2,
-%   author = {Author One and Author Two and Author Three},
-%   title = {Title with Equation $e^{i\pi}+1=0$}
-% }
+```blog-bib
+@misc{Example1,
+  author = {First Author and Second Author},
+  title = {Title without Equation}
+}
 
-% @misc{Example3,
-%   author = {Sole Author},
-%   title = {Title with Annotated Equation $e^{i\pi}+1=0$},
-%   biosite_arialabel = {Title with Annotated Equation e to the i times pi plus one equals zero}
-% }
+@misc{Example2,
+  author = {Author One and Author Two and Author Three},
+  title = {Title with Equation $e^{i\pi}+1=0$}
+}
 
-% @misc{Example4,
-%   author = {Alice and Bob and Eve and Mallory and others},
-%   title = {Link without Equation},
-%   biosite_url = {#}
-% }
+@misc{Example3,
+  author = {Sole Author},
+  title = {Title with Annotated Equation $e^{i\pi}+1=0$},
+  biosite_arialabel = {Title with Annotated Equation e to the i times pi plus one equals zero}
+}
 
-% @misc{Example5,
-%   author = {Sailor{ }Moon and Tuxedo{ }Mask},
-%   title = {Link with Equation $e^{i\pi}+1=0$},
-%   biosite_url = {#}
-% }
+@misc{Example4,
+  author = {Alice and Bob and Eve and Mallory and others},
+  title = {Link without Equation},
+  biosite_url = {#}
+}
 
-% @misc{Example6,
-%   author = {Youma and Cardian and Droid and Daimon and Lemures and Phage},
-%   title = {Link with Annotated Equation $e^{i\pi}+1=0$},
-%   biosite_url = {#},
-%   biosite_arialabel = {Link with Annotated Equation e to the i times pi plus one equals zero}
-% }
-% ```
+@misc{Example5,
+  author = {Sailor{ }Moon and Tuxedo{ }Mask},
+  title = {Link with Equation $e^{i\pi}+1=0$},
+  biosite_url = {#}
+}
+
+@misc{Example6,
+  author = {Youma and Cardian and Droid and Daimon and Lemures and Phage},
+  title = {Link with Annotated Equation $e^{i\pi}+1=0$},
+  biosite_url = {#},
+  biosite_arialabel = {Link with Annotated Equation e to the i times pi plus one equals zero}
+}
+```
+
+}
