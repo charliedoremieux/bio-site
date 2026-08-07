@@ -33,7 +33,7 @@ Change the encoding for your own email address.
 <script type="application/javascript">
 window.setTimeout(function ()
 {
-var addr = [115,111,109,101,111,110,101,64,101,120,97,109,112,108,101,46,99,111,109];
+var addr = [99,104,97,114,108,105,101,46,100,111,114,101,109,105,101,117,120,64,114,117,116,103,101,114,115,46,101,100,117];
 addr = String.fromCharCode.apply(String, addr);
 var eml = document.getElementById('_eml');
 eml.innerHTML = '<a href="mailto:' + addr + '">' + addr + '</a>';
