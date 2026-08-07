@@ -87,114 +87,110 @@ function RenderKaTeX(part, isDisplay)
 };
 
 const fs = require('fs');
+const indexmd = path.join(repo, 'index.md');
+const content = fs.readFileSync(indexmd, 'utf8');
+const rendered = marked(content);
 
-function buildPage(sourceFile, outputFile)
+const months = ['January', 'February', 'March', 'April',
+'May', 'June', 'July', 'August',
+'September', 'October', 'November', 'December'];
+const now = new Date();
+const dateModified = (function (now)
 {
-    const indexmd = path.join(repo, sourceFile);
-    const content = fs.readFileSync(indexmd, 'utf8');
-    const rendered = marked(content);
-    
-    const months = ['January', 'February', 'March', 'April',
-    'May', 'June', 'July', 'August',
-    'September', 'October', 'November', 'December'];
-    const now = new Date();
-    const dateModified = (function (now)
+    const year = now.getUTCFullYear();
+    const month = now.getUTCMonth() + 1;
+    const day = now.getUTCDate();
+    if (year < 1000 || year > 5000)
     {
-        const year = now.getUTCFullYear();
-        const month = now.getUTCMonth() + 1;
-        const day = now.getUTCDate();
-        if (year < 1000 || year > 5000)
-        {
-            throw new Error('Unsupported date: ' + now);
-        }
-        return year + '-' +
-            (month < 10 ? '0' + month : month) + '-' +
-            (day < 10 ? '0' + day : day);
-    })(now);
-    const dateModifiedLong = (function (now)
+        throw new Error('Unsupported date: ' + now);
+    }
+    return year + '-' +
+        (month < 10 ? '0' + month : month) + '-' +
+        (day < 10 ? '0' + day : day);
+})(now);
+const dateModifiedLong = (function (now)
+{
+    return now.getUTCDate() + ' ' +
+        months[now.getUTCMonth()] + ' ' +
+        now.getUTCFullYear();
+})(now);
+
+let indexhtml = fs.readFileSync(
+    path.join(repo, 'builder', 'template.html'),
+    'utf8');
+indexhtml = indexhtml.replace(/\r\n|\r|\n/g, '\n');
+indexhtml = indexhtml.replace(/\n[ \t\v\f\n]*\n/g, '\n');
+indexhtml = indexhtml.replace(
+    /<!--\[bio\]\[body\]([\u0000-\uffff]*?)\[bio\]-->/g,
+    rendered);
+
+let meta = undefined;
+indexhtml = indexhtml.replace(
+    /<!--\[bio\]\[meta\]([\u0000-\uffff]*?)\[bio\]-->/g,
+    function (match, metastring)
     {
-        return now.getUTCDate() + ' ' +
-            months[now.getUTCMonth()] + ' ' +
-            now.getUTCFullYear();
-    })(now);
-    
-    let indexhtml = fs.readFileSync(
-        path.join(repo, 'builder', 'template.html'),
-        'utf8');
-    indexhtml = indexhtml.replace(/\r\n|\r|\n/g, '\n');
-    indexhtml = indexhtml.replace(/\n[ \t\v\f\n]*\n/g, '\n');
-    indexhtml = indexhtml.replace(
-        /<!--\[bio\]\[body\]([\u0000-\uffff]*?)\[bio\]-->/g,
-        rendered);
-    
-    let meta = undefined;
-    indexhtml = indexhtml.replace(
-        /<!--\[bio\]\[meta\]([\u0000-\uffff]*?)\[bio\]-->/g,
-        function (match, metastring)
-        {
-            meta = JSON.parse(metastring);
-            return '';
-        });
-    indexhtml = indexhtml.replace(
-        /<!--\[bio\]\[date-modified\]([\u0000-\uffff]*?)\[bio\]-->/g,
-        dateModified);
-    indexhtml = indexhtml.replace(
-        /<!--\[bio\]\[date-modified-long\]([\u0000-\uffff]*?)\[bio\]-->/g,
-        dateModifiedLong);
-    indexhtml = indexhtml.replace(
-        /<!--\[bio\]\[name\]([\u0000-\uffff]*?)\[bio\]-->/g,
-        meta.name);
-    indexhtml = indexhtml.replace(
-        /<!--\[bio\]\[title\]([\u0000-\uffff]*?)\[bio\]-->/g,
-        meta.title);
-    indexhtml = indexhtml.replace(
-        /<!--\[bio\]\[description\]([\u0000-\uffff]*?)\[bio\]-->/g,
-        meta.description);
-    indexhtml = indexhtml.replace(
-        /<!--\[bio\]\[url\]([\u0000-\uffff]*?)\[bio\]-->/g,
-        meta.url);
-    indexhtml = indexhtml.replace(
-        /<!--\[bio\]\[assets\]([\u0000-\uffff]*?)\[bio\]-->/g,
-        meta.assets);
-    indexhtml = indexhtml.replace(
-        /<!--\[bio\]\[date-created\]([\u0000-\uffff]*?)\[bio\]-->/g,
-        meta['date-created']);
-    indexhtml = indexhtml.replace(
-        /<!--\[bio\]\[tilecolor\]([\u0000-\uffff]*?)\[bio\]-->/g,
-        meta.tilecolor);
-    indexhtml = indexhtml.replace(
-        /<!--\[bio\]\[repo\]([\u0000-\uffff]*?)\[bio\]-->/g,
-        meta.repo);
-    
-    let headline = undefined;
-    indexhtml = indexhtml.replace(
-        /<!--\[bio\]\[set-headline\]([\u0000-\uffff]*?)\[bio\]-->/g,
-        function (match, headlinestring)
-        {
-            headline = headlinestring;
-            return '';
-        });
-    indexhtml = indexhtml.replace(
-        /<!--\[bio\]\[get-headline\]([\u0000-\uffff]*?)\[bio\]-->/g,
-        headline);
-    
-    indexhtml = indexhtml.replace(
-        /<!--\[blog\]\[katex(-display)?\]([\u0000-\uffff]*?)\[blog\]-->/g,
-        function (match, display, part)
-        {
-            return RenderKaTeX(part, !!display);
-        });
-    indexhtml = indexhtml.replace(
-        /<!--\[bio\]\[protect\][ \t\v\f\n]*([\u0000-\uffff]*?)[ \t\v\f\n]*\[bio\]-->/g,
-        '$1');
-    indexhtml = indexhtml.replace(
-        /<!--\[bio\]\[remove\]([\u0000-\uffff]*?)\[bio\]-->/g,
-        '');
-    
-    fs.writeFileSync(
-        path.join(repo, outputFile),
-        indexhtml);
-}
+        meta = JSON.parse(metastring);
+        return '';
+    });
+indexhtml = indexhtml.replace(
+    /<!--\[bio\]\[date-modified\]([\u0000-\uffff]*?)\[bio\]-->/g,
+    dateModified);
+indexhtml = indexhtml.replace(
+    /<!--\[bio\]\[date-modified-long\]([\u0000-\uffff]*?)\[bio\]-->/g,
+    dateModifiedLong);
+indexhtml = indexhtml.replace(
+    /<!--\[bio\]\[name\]([\u0000-\uffff]*?)\[bio\]-->/g,
+    meta.name);
+indexhtml = indexhtml.replace(
+    /<!--\[bio\]\[title\]([\u0000-\uffff]*?)\[bio\]-->/g,
+    meta.title);
+indexhtml = indexhtml.replace(
+    /<!--\[bio\]\[description\]([\u0000-\uffff]*?)\[bio\]-->/g,
+    meta.description);
+indexhtml = indexhtml.replace(
+    /<!--\[bio\]\[url\]([\u0000-\uffff]*?)\[bio\]-->/g,
+    meta.url);
+indexhtml = indexhtml.replace(
+    /<!--\[bio\]\[assets\]([\u0000-\uffff]*?)\[bio\]-->/g,
+    meta.assets);
+indexhtml = indexhtml.replace(
+    /<!--\[bio\]\[date-created\]([\u0000-\uffff]*?)\[bio\]-->/g,
+    meta['date-created']);
+indexhtml = indexhtml.replace(
+    /<!--\[bio\]\[tilecolor\]([\u0000-\uffff]*?)\[bio\]-->/g,
+    meta.tilecolor);
+indexhtml = indexhtml.replace(
+    /<!--\[bio\]\[repo\]([\u0000-\uffff]*?)\[bio\]-->/g,
+    meta.repo);
+
+let headline = undefined;
+indexhtml = indexhtml.replace(
+    /<!--\[bio\]\[set-headline\]([\u0000-\uffff]*?)\[bio\]-->/g,
+    function (match, headlinestring)
+    {
+        headline = headlinestring;
+        return '';
+    });
+indexhtml = indexhtml.replace(
+    /<!--\[bio\]\[get-headline\]([\u0000-\uffff]*?)\[bio\]-->/g,
+    headline);
+
+indexhtml = indexhtml.replace(
+    /<!--\[blog\]\[katex(-display)?\]([\u0000-\uffff]*?)\[blog\]-->/g,
+    function (match, display, part)
+    {
+        return RenderKaTeX(part, !!display);
+    });
+indexhtml = indexhtml.replace(
+    /<!--\[bio\]\[protect\][ \t\v\f\n]*([\u0000-\uffff]*?)[ \t\v\f\n]*\[bio\]-->/g,
+    '$1');
+indexhtml = indexhtml.replace(
+    /<!--\[bio\]\[remove\]([\u0000-\uffff]*?)\[bio\]-->/g,
+    '');
+
+fs.writeFileSync(
+    path.join(repo, 'index.html'),
+    indexhtml);
 
 fs.writeFileSync(
     path.join(repo, '404.html'),
@@ -203,6 +199,3 @@ fs.writeFileSync(
     replace(/\n[ \t\v\f\n]*\n/g, '\n').
     replace(/<!--\[bio\]\[url\]([\u0000-\uffff]*?)\[bio\]-->/g, meta.url)
 );
-
-buildPage('index.md', 'index.html');
-buildPage('reading-groups.md', 'reading-groups.html');
