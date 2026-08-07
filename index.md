@@ -1,7 +1,7 @@
 ```bio-meta
 {
     "name": "Charlie Doremieux",
-    "title": "Charlie's CV",
+    "title": "Charlie Doremieux",
     "description": "Charlie Doremieux's Page",
     "url": "https://charliedoremieux.github.io/bio-site/",
     "assets": "https://charliedoremieux.github.io/bio-site/assets",
@@ -41,6 +41,13 @@ eml.removeAttribute('class');
 }, 600);
 </script>
 [bio]-->
+
+
+## Teaching
+
+### Fall 2026
+
+Grader for [Philosophy 420: Philosophy of Language](COURSE_URL) for Professor [Jeff King](https://philosophy.rutgers.edu/people/regular-faculty/regular-faculty-profile/182-regular-faculty-full-time/607-jking).
 
 
 ## Building Blocks
