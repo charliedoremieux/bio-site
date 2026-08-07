@@ -17,9 +17,9 @@
 
 I’m a second-year Ph.D. student in Philosophy at [Rutgers University](https://philosophy.rutgers.edu/). Presently, I am interested in Philosophy of Language and Metaphysics.
 
-Prior to joining Rutgers, I studied Applied Mathematics and Philosophy from [The University of Colorado, Boulder](https://www.colorado.edu/)).
+Prior to joining Rutgers, I studied Applied Mathematics and Philosophy from [The University of Colorado, Boulder](https://www.colorado.edu/).
 
-I can be reached at <span id="_eml" class="gl-eml">charlie.doremieux at rutgers dot edu</span>.
+I can be reached at <span id="_eml" class="gl-eml">charlie dot doremieux at rutgers dot edu</span>.
 
 ```bio-remove
 Below we use a simple mechanism to mitigate email address reaping.
