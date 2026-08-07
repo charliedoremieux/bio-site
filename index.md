@@ -45,14 +45,9 @@ eml.removeAttribute('class');
 ## Teaching
 - **Fall 2026** — Grader for [Philosophy 420: Philosophy of Language](https://philosophy.rutgers.edu/undergraduate-courses) for Professor [Jeff King](https://philosophy.rutgers.edu/people/regular-faculty/regular-faculty-profile/182-regular-faculty-full-time/607-jking).
 
-@comment
-{
+<!--
 
 ## Building Blocks
-}
-
-@comment
-{
 
 ```blog-bib
 
@@ -64,8 +59,6 @@ It is possible to have multiple BibTeX blocks, which will be rendered independen
 To support more information links (e.g., add "slides" or "pdf" links),
 see "builder/marked.0.3.6/bibtex-service.js" line 109.
 }
-
-@comment{
 
 @online{GitHub:BibTeXTS,
   author = {Ji Luo},
@@ -97,10 +90,7 @@ see "builder/marked.0.3.6/bibtex-service.js" line 109.
 }
 
 ```
-}
 
-@comment
-{
 ## Accessibility Examples
 
 ```blog-bib
@@ -139,4 +129,5 @@ see "builder/marked.0.3.6/bibtex-service.js" line 109.
   biosite_arialabel = {Link with Annotated Equation e to the i times pi plus one equals zero}
 }
 ```
-}
+
+-->
