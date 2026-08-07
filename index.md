@@ -11,7 +11,7 @@
 }
 ```
 
-# J.&nbsp;Doe
+# Charlie Doremieux
 
 <figure class="gl-page-background gl-float-right gl-image-box" style="text-align: center;"><img src="assets/images/hero-image.jpg" alt="A photo of J. Doe" width="160" height="160" style="max-width: 160px;" /></figure>
 
