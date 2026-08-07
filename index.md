@@ -1,12 +1,12 @@
 ```bio-meta
 {
-    "name": "J. Doe",
-    "title": "J. Doe | Curriculum Vitae",
-    "description": "J. Doe&#8217;s curriculum vitae.",
-    "url": "https://GeeLaw.github.io/bio-site/",
-    "assets": "https://GeeLaw.github.io/bio-site/assets",
+    "name": "Charlie Doremieux",
+    "title": "Charlie Doremieux | Curriculum Vitae",
+    "description": "Charlie Doremieux curriculum vitae.",
+    "url": "https://charliedoremieux.github.io/bio-site/",
+    "assets": "https://charliedoremieux.github.io/bio-site/assets",
     "date-created": "2020-04-21",
-    "repo": "https://github.com/GeeLaw/bio-site",
+    "repo": "https://charliedoremieux.github.io/bio-site/",
     "tilecolor": "#f2f2f2"
 }
 ```
