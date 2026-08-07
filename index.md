@@ -45,6 +45,18 @@ eml.removeAttribute('class');
 ## Teaching
 - **Fall 2026** — Grader for [Philosophy 420: Philosophy of Language](https://philosophy.rutgers.edu/undergraduate-courses) for Professor [Jeff King](https://philosophy.rutgers.edu/people/regular-faculty/regular-faculty-profile/182-regular-faculty-full-time/607-jking).
 
+## Reading Groups
+
+<details>
+<summary>Rutgers Philosophy of Language Reading Group (Fall 2026)</summary>
+    
+- Week 1 — TBA
+- Week 2 — TBA
+- Week 3 — TBA
+
+</details>
+
+
 <!--
 
 ## Building Blocks
