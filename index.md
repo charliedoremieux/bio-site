@@ -24,6 +24,9 @@ I can be reached at <span id="_eml" class="gl-eml">charlie dot doremieux at rutg
 ```bio-remove
 Below we use a simple mechanism to mitigate email address reaping.
 Change the encoding for your own email address.
+```bio-remove
+Below we use a simple mechanism to mitigate email address reaping.
+Change the encoding for your own email address.
 ```
 
 <!--[bio][protect]
@@ -38,8 +41,6 @@ eml.removeAttribute('class');
 }, 600);
 </script>
 [bio]-->
-
-This is an example personal homepage built with [bio-site](https://github.com/GeeLaw/bio-site). It features simplicity and integration with BibTeX.
 
 ## Building Blocks
 
