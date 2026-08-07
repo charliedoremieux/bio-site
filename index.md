@@ -49,11 +49,14 @@ eml.removeAttribute('class');
 {
 
 ## Building Blocks
-
-```blog-bib
+}
 
 @comment
 {
+
+```blog-bib
+
+
 Use #bibitem_Venue_Key to refer to "Venue:Key".
 
 It is possible to have multiple BibTeX blocks, which will be rendered independently. For example, you might want to have one block for each of "Publications", "Pre-prints", and "Manuscripts".
@@ -61,6 +64,8 @@ It is possible to have multiple BibTeX blocks, which will be rendered independen
 To support more information links (e.g., add "slides" or "pdf" links),
 see "builder/marked.0.3.6/bibtex-service.js" line 109.
 }
+
+@comment{
 
 @online{GitHub:BibTeXTS,
   author = {Ji Luo},
@@ -92,7 +97,10 @@ see "builder/marked.0.3.6/bibtex-service.js" line 109.
 }
 
 ```
+}
 
+@comment
+{
 ## Accessibility Examples
 
 ```blog-bib
