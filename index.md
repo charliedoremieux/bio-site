@@ -1,8 +1,8 @@
 ```bio-meta
 {
     "name": "Charlie Doremieux",
-    "title": "Charlie's Page",
-    "description": "Charlie Doremieux curriculum vitae.",
+    "title": "Charlie's CV",
+    "description": "Charlie Doremieux's Page",
     "url": "https://charliedoremieux.github.io/bio-site/",
     "assets": "https://charliedoremieux.github.io/bio-site/assets",
     "date-created": "2020-04-21",
