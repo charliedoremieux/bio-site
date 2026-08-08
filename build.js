@@ -201,6 +201,14 @@ function processMarkdownFile(mdFilePath, templateContent) {
         /<!--\[bio\]\[remove\]([\u0000-\uffff]*?)\[bio\]-->/g,
         '');
 
+    // Fix asset paths - replace relative asset paths with the correct path
+    if (meta.assets && meta.assets.startsWith('.')) {
+        // For relative paths like "../../assets", update all references
+        indexhtml = indexhtml.replace(/href="assets\//g, 'href="' + meta.assets + '/');
+        indexhtml = indexhtml.replace(/src="assets\//g, 'src="' + meta.assets + '/');
+        indexhtml = indexhtml.replace(/content="assets\//g, 'content="' + meta.assets + '/');
+    }
+
     return indexhtml;
 }
 
