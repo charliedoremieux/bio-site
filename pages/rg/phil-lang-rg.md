@@ -11,6 +11,9 @@
 }
 [bio]-->
 
+<link rel="shortcut icon" href="../../favicon.ico" type="image/x-icon" />
+<link rel="icon" href="../../favicon.ico" type="image/x-icon" />
+
 <!--[bio][set-headline]Rutgers Philosophy of Language Reading Group[bio]-->
 
 # Philosophy of Language Reading Group
@@ -21,4 +24,3 @@
 - Week 2: Author, "Paper"
 - Week 3: TBA
 - Week 4: TBA
-- Week 5: TBA
