@@ -1,0 +1,23 @@
+name: Build Site
+
+on:
+  push:
+    branches: [master, main]
+    paths:
+      - '**.md'
+      - 'build.js'
+      - 'builder/**'
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v3
+      - uses: actions/setup-node@v3
+        with:
+          node-version: '16'
+      - run: node build.js
+      - uses: stefanzweifel/git-auto-commit-action@v4
+        with:
+          commit_message: "[CI] Auto-generate HTML from markdown"
+          file_pattern: "**.html"
