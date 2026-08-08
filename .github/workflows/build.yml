@@ -15,13 +15,26 @@ jobs:
       contents: write
     steps:
       - uses: actions/checkout@v3
+        with:
+          token: ${{ secrets.GITHUB_TOKEN }}
+      
       - uses: actions/setup-node@v3
         with:
           node-version: '16'
+      
       - run: node build.js
-      - uses: stefanzweifel/git-auto-commit-action@v4
-        with:
-          commit_message: "[CI] Auto-generate HTML from markdown"
-          file_pattern: "**.html"
-          commit_user_name: github-actions[bot]
-          commit_user_email: 41898282+github-actions[bot]@users.noreply.github.com
+      
+      - name: Configure git
+        run: |
+          git config --local user.email "action@github.com"
+          git config --local user.name "GitHub Action"
+      
+      - name: Commit and push if changed
+        run: |
+          if git diff --quiet; then
+            echo "No changes to commit"
+          else
+            git add "**.html"
+            git commit -m "[CI] Auto-generate HTML from markdown"
+            git push
+          fi
