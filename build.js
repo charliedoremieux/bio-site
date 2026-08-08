@@ -1,4 +1,5 @@
 const path = require('path');
+const fs = require('fs');
 const repo = path.dirname(process.argv[1]);
 const marked = require(path.join(repo, 'builder', 'marked.0.3.6', 'marked.js'));
 
@@ -86,17 +87,11 @@ function RenderKaTeX(part, isDisplay)
         sanitizeForAttribute(part) + '</code></span>';
 };
 
-const fs = require('fs');
-const indexmd = path.join(repo, 'index.md');
-const content = fs.readFileSync(indexmd, 'utf8');
-const rendered = marked(content);
-
 const months = ['January', 'February', 'March', 'April',
 'May', 'June', 'July', 'August',
 'September', 'October', 'November', 'December'];
-const now = new Date();
-const dateModified = (function (now)
-{
+
+function getDateModified(now) {
     const year = now.getUTCFullYear();
     const month = now.getUTCMonth() + 1;
     const day = now.getUTCDate();
@@ -107,95 +102,170 @@ const dateModified = (function (now)
     return year + '-' +
         (month < 10 ? '0' + month : month) + '-' +
         (day < 10 ? '0' + day : day);
-})(now);
-const dateModifiedLong = (function (now)
-{
+}
+
+function getDateModifiedLong(now) {
     return now.getUTCDate() + ' ' +
         months[now.getUTCMonth()] + ' ' +
         now.getUTCFullYear();
-})(now);
+}
 
-let indexhtml = fs.readFileSync(
-    path.join(repo, 'builder', 'template.html'),
-    'utf8');
-indexhtml = indexhtml.replace(/\r\n|\r|\n/g, '\n');
-indexhtml = indexhtml.replace(/\n[ \t\v\f\n]*\n/g, '\n');
-indexhtml = indexhtml.replace(
-    /<!--\[bio\]\[body\]([\u0000-\uffff]*?)\[bio\]-->/g,
-    rendered);
+function processMarkdownFile(mdFilePath, templateContent) {
+    const now = new Date();
+    const dateModified = getDateModified(now);
+    const dateModifiedLong = getDateModifiedLong(now);
 
-let meta = undefined;
-indexhtml = indexhtml.replace(
-    /<!--\[bio\]\[meta\]([\u0000-\uffff]*?)\[bio\]-->/g,
-    function (match, metastring)
-    {
-        meta = JSON.parse(metastring);
-        return '';
-    });
-indexhtml = indexhtml.replace(
-    /<!--\[bio\]\[date-modified\]([\u0000-\uffff]*?)\[bio\]-->/g,
-    dateModified);
-indexhtml = indexhtml.replace(
-    /<!--\[bio\]\[date-modified-long\]([\u0000-\uffff]*?)\[bio\]-->/g,
-    dateModifiedLong);
-indexhtml = indexhtml.replace(
-    /<!--\[bio\]\[name\]([\u0000-\uffff]*?)\[bio\]-->/g,
-    meta.name);
-indexhtml = indexhtml.replace(
-    /<!--\[bio\]\[title\]([\u0000-\uffff]*?)\[bio\]-->/g,
-    meta.title);
-indexhtml = indexhtml.replace(
-    /<!--\[bio\]\[description\]([\u0000-\uffff]*?)\[bio\]-->/g,
-    meta.description);
-indexhtml = indexhtml.replace(
-    /<!--\[bio\]\[url\]([\u0000-\uffff]*?)\[bio\]-->/g,
-    meta.url);
-indexhtml = indexhtml.replace(
-    /<!--\[bio\]\[assets\]([\u0000-\uffff]*?)\[bio\]-->/g,
-    meta.assets);
-indexhtml = indexhtml.replace(
-    /<!--\[bio\]\[date-created\]([\u0000-\uffff]*?)\[bio\]-->/g,
-    meta['date-created']);
-indexhtml = indexhtml.replace(
-    /<!--\[bio\]\[tilecolor\]([\u0000-\uffff]*?)\[bio\]-->/g,
-    meta.tilecolor);
-indexhtml = indexhtml.replace(
-    /<!--\[bio\]\[repo\]([\u0000-\uffff]*?)\[bio\]-->/g,
-    meta.repo);
+    const content = fs.readFileSync(mdFilePath, 'utf8');
+    const rendered = marked(content);
 
-let headline = undefined;
-indexhtml = indexhtml.replace(
-    /<!--\[bio\]\[set-headline\]([\u0000-\uffff]*?)\[bio\]-->/g,
-    function (match, headlinestring)
-    {
-        headline = headlinestring;
-        return '';
-    });
-indexhtml = indexhtml.replace(
-    /<!--\[bio\]\[get-headline\]([\u0000-\uffff]*?)\[bio\]-->/g,
-    headline);
+    let indexhtml = templateContent.replace(/\r\n|\r|\n/g, '\n');
+    indexhtml = indexhtml.replace(/\n[ \t\v\f\n]*\n/g, '\n');
+    indexhtml = indexhtml.replace(
+        /<!--\[bio\]\[body\]([\u0000-\uffff]*?)\[bio\]-->/g,
+        rendered);
 
-indexhtml = indexhtml.replace(
-    /<!--\[blog\]\[katex(-display)?\]([\u0000-\uffff]*?)\[blog\]-->/g,
-    function (match, display, part)
-    {
-        return RenderKaTeX(part, !!display);
-    });
-indexhtml = indexhtml.replace(
-    /<!--\[bio\]\[protect\][ \t\v\f\n]*([\u0000-\uffff]*?)[ \t\v\f\n]*\[bio\]-->/g,
-    '$1');
-indexhtml = indexhtml.replace(
-    /<!--\[bio\]\[remove\]([\u0000-\uffff]*?)\[bio\]-->/g,
-    '');
+    let meta = undefined;
+    indexhtml = indexhtml.replace(
+        /<!--\[bio\]\[meta\]([\u0000-\uffff]*?)\[bio\]-->/g,
+        function (match, metastring)
+        {
+            meta = JSON.parse(metastring);
+            return '';
+        });
+    indexhtml = indexhtml.replace(
+        /<!--\[bio\]\[date-modified\]([\u0000-\uffff]*?)\[bio\]-->/g,
+        dateModified);
+    indexhtml = indexhtml.replace(
+        /<!--\[bio\]\[date-modified-long\]([\u0000-\uffff]*?)\[bio\]-->/g,
+        dateModifiedLong);
+    indexhtml = indexhtml.replace(
+        /<!--\[bio\]\[name\]([\u0000-\uffff]*?)\[bio\]-->/g,
+        meta.name);
+    indexhtml = indexhtml.replace(
+        /<!--\[bio\]\[title\]([\u0000-\uffff]*?)\[bio\]-->/g,
+        meta.title);
+    indexhtml = indexhtml.replace(
+        /<!--\[bio\]\[description\]([\u0000-\uffff]*?)\[bio\]-->/g,
+        meta.description);
+    indexhtml = indexhtml.replace(
+        /<!--\[bio\]\[url\]([\u0000-\uffff]*?)\[bio\]-->/g,
+        meta.url);
+    indexhtml = indexhtml.replace(
+        /<!--\[bio\]\[assets\]([\u0000-\uffff]*?)\[bio\]-->/g,
+        meta.assets);
+    indexhtml = indexhtml.replace(
+        /<!--\[bio\]\[date-created\]([\u0000-\uffff]*?)\[bio\]-->/g,
+        meta['date-created']);
+    indexhtml = indexhtml.replace(
+        /<!--\[bio\]\[tilecolor\]([\u0000-\uffff]*?)\[bio\]-->/g,
+        meta.tilecolor);
+    indexhtml = indexhtml.replace(
+        /<!--\[bio\]\[repo\]([\u0000-\uffff]*?)\[bio\]-->/g,
+        meta.repo);
 
-fs.writeFileSync(
-    path.join(repo, 'index.html'),
-    indexhtml);
+    let headline = undefined;
+    indexhtml = indexhtml.replace(
+        /<!--\[bio\]\[set-headline\]([\u0000-\uffff]*?)\[bio\]-->/g,
+        function (match, headlinestring)
+        {
+            headline = headlinestring;
+            return '';
+        });
+    indexhtml = indexhtml.replace(
+        /<!--\[bio\]\[get-headline\]([\u0000-\uffff]*?)\[bio\]-->/g,
+        headline);
 
-fs.writeFileSync(
-    path.join(repo, '404.html'),
-    fs.readFileSync(path.join(repo, 'builder', '404.template.html'), 'utf8').
-    replace(/\r\n|\r|\n/g, '\n').
-    replace(/\n[ \t\v\f\n]*\n/g, '\n').
-    replace(/<!--\[bio\]\[url\]([\u0000-\uffff]*?)\[bio\]-->/g, meta.url)
-);
+    indexhtml = indexhtml.replace(
+        /<!--\[blog\]\[katex(-display)?\]([\u0000-\uffff]*?)\[blog\]-->/g,
+        function (match, display, part)
+        {
+            return RenderKaTeX(part, !!display);
+        });
+    indexhtml = indexhtml.replace(
+        /<!--\[bio\]\[protect\][ \t\v\f\n]*([\u0000-\uffff]*?)[ \t\v\f\n]*\[bio\]-->/g,
+        '$1');
+    indexhtml = indexhtml.replace(
+        /<!--\[bio\]\[remove\]([\u0000-\uffff]*?)\[bio\]-->/g,
+        '');
+
+    return indexhtml;
+}
+
+function findMarkdownFiles(startPath) {
+    let results = [];
+    
+    function walk(dir) {
+        try {
+            const files = fs.readdirSync(dir);
+            
+            files.forEach(file => {
+                const filePath = path.join(dir, file);
+                const stat = fs.statSync(filePath);
+                
+                if (stat.isDirectory() && file !== 'node_modules' && file !== 'builder' && !file.startsWith('.')) {
+                    walk(filePath);
+                } else if (stat.isFile() && file.endsWith('.md') && file !== 'README.md') {
+                    results.push(filePath);
+                }
+            });
+        } catch (err) {
+            console.error('Error reading directory ' + dir + ':', err);
+        }
+    }
+    
+    walk(startPath);
+    return results;
+}
+
+// Main build process
+console.log('Building site...');
+
+const templatePath = path.join(repo, 'builder', 'template.html');
+const templateContent = fs.readFileSync(templatePath, 'utf8');
+
+// Get all markdown files to process
+const mdFiles = [path.join(repo, 'index.md')].concat(findMarkdownFiles(repo));
+
+console.log('Found ' + mdFiles.length + ' markdown files to process');
+
+mdFiles.forEach(mdFile => {
+    try {
+        const htmlContent = processMarkdownFile(mdFile, templateContent);
+        
+        // Determine output path
+        let htmlPath;
+        if (mdFile === path.join(repo, 'index.md')) {
+            htmlPath = path.join(repo, 'index.html');
+        } else {
+            // Replace .md with .html
+            htmlPath = mdFile.replace(/\.md$/, '.html');
+        }
+        
+        fs.writeFileSync(htmlPath, htmlContent);
+        console.log('Generated: ' + htmlPath.replace(repo, '.'));
+    } catch (err) {
+        console.error('Error processing ' + mdFile + ':', err);
+    }
+});
+
+// Handle 404 page
+try {
+    const meta = {
+        url: 'https://charliedoremieux.github.io/bio-site/'
+    };
+    
+    let notFoundContent = fs.readFileSync(
+        path.join(repo, 'builder', '404.template.html'), 'utf8');
+    notFoundContent = notFoundContent.replace(/\r\n|\r|\n/g, '\n');
+    notFoundContent = notFoundContent.replace(/\n[ \t\v\f\n]*\n/g, '\n');
+    notFoundContent = notFoundContent.replace(
+        /<!--\[bio\]\[url\]([\u0000-\uffff]*?)\[bio\]-->/g, 
+        meta.url);
+    
+    fs.writeFileSync(path.join(repo, '404.html'), notFoundContent);
+    console.log('Generated: ./404.html');
+} catch (err) {
+    console.error('Error generating 404 page:', err);
+}
+
+console.log('Build complete!');
