@@ -15,3 +15,4 @@
 ## Fall 2026
 - Week 1: Author, "Paper"
 - Week 2: Author, "Paper"
+- Week 3: TBA
