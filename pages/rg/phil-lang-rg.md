@@ -21,4 +21,4 @@
 - Week 2: Author, "Paper"
 - Week 3: TBA
 - Week 4: TBA
-- Week 5 Blegh
+- Week 5: TBA
