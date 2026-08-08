@@ -125,13 +125,26 @@ function processMarkdownFile(mdFilePath, templateContent) {
         rendered);
 
     let meta = undefined;
+    let hasMeta = false;
     indexhtml = indexhtml.replace(
         /<!--\[bio\]\[meta\]([\u0000-\uffff]*?)\[bio\]-->/g,
         function (match, metastring)
         {
-            meta = JSON.parse(metastring);
+            try {
+                meta = JSON.parse(metastring);
+                hasMeta = true;
+            } catch (e) {
+                console.error('Error parsing metadata in ' + mdFilePath + ':', e);
+            }
             return '';
         });
+
+    // Skip processing if no metadata found
+    if (!hasMeta || !meta) {
+        console.log('Skipped: ' + mdFilePath + ' (no bio-meta block)');
+        return null;
+    }
+
     indexhtml = indexhtml.replace(
         /<!--\[bio\]\[date-modified\]([\u0000-\uffff]*?)\[bio\]-->/g,
         dateModified);
@@ -140,28 +153,28 @@ function processMarkdownFile(mdFilePath, templateContent) {
         dateModifiedLong);
     indexhtml = indexhtml.replace(
         /<!--\[bio\]\[name\]([\u0000-\uffff]*?)\[bio\]-->/g,
-        meta.name);
+        meta.name || '');
     indexhtml = indexhtml.replace(
         /<!--\[bio\]\[title\]([\u0000-\uffff]*?)\[bio\]-->/g,
-        meta.title);
+        meta.title || '');
     indexhtml = indexhtml.replace(
         /<!--\[bio\]\[description\]([\u0000-\uffff]*?)\[bio\]-->/g,
-        meta.description);
+        meta.description || '');
     indexhtml = indexhtml.replace(
         /<!--\[bio\]\[url\]([\u0000-\uffff]*?)\[bio\]-->/g,
-        meta.url);
+        meta.url || '');
     indexhtml = indexhtml.replace(
         /<!--\[bio\]\[assets\]([\u0000-\uffff]*?)\[bio\]-->/g,
-        meta.assets);
+        meta.assets || '');
     indexhtml = indexhtml.replace(
         /<!--\[bio\]\[date-created\]([\u0000-\uffff]*?)\[bio\]-->/g,
-        meta['date-created']);
+        meta['date-created'] || '');
     indexhtml = indexhtml.replace(
         /<!--\[bio\]\[tilecolor\]([\u0000-\uffff]*?)\[bio\]-->/g,
-        meta.tilecolor);
+        meta.tilecolor || '');
     indexhtml = indexhtml.replace(
         /<!--\[bio\]\[repo\]([\u0000-\uffff]*?)\[bio\]-->/g,
-        meta.repo);
+        meta.repo || '');
 
     let headline = undefined;
     indexhtml = indexhtml.replace(
@@ -173,7 +186,7 @@ function processMarkdownFile(mdFilePath, templateContent) {
         });
     indexhtml = indexhtml.replace(
         /<!--\[bio\]\[get-headline\]([\u0000-\uffff]*?)\[bio\]-->/g,
-        headline);
+        headline || '');
 
     indexhtml = indexhtml.replace(
         /<!--\[blog\]\[katex(-display)?\]([\u0000-\uffff]*?)\[blog\]-->/g,
@@ -231,6 +244,11 @@ console.log('Found ' + mdFiles.length + ' markdown files to process');
 mdFiles.forEach(mdFile => {
     try {
         const htmlContent = processMarkdownFile(mdFile, templateContent);
+        
+        // Skip if no metadata
+        if (htmlContent === null) {
+            return;
+        }
         
         // Determine output path
         let htmlPath;
