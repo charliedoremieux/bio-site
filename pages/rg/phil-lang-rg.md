@@ -14,3 +14,4 @@
 # Philosophy of Language Reading Group
 ## Fall 2026
 - Week 1: Author, "Paper"
+- Week 2: Author, "Paper"
