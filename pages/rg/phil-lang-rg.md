@@ -9,6 +9,7 @@
     "repo": "https://charliedoremieux.github.io/bio-site/",
     "tilecolor": "#f2f2f2"
 }
+```
  <!--[bio][set-headline]Rutgers Philosophy of Language Reading Group[bio]-->
 
 # Philosophy of Language Reading Group
