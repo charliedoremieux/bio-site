@@ -1,0 +1,16 @@
+```bio-meta
+{
+    "name": "Charlie Doremieux",
+    "title": "Rutgers Philosophy of Language Reading Group",
+    "description": "Fall 2026 reading group on Philosophy of Language",
+    "url": "https://charliedoremieux.github.io/bio-site/reading-groups/phil-language/phil-language.html",
+    "assets": "https://charliedoremieux.github.io/bio-site/assets",
+    "date-created": "2026-08-08",
+    "repo": "https://charliedoremieux.github.io/bio-site/",
+    "tilecolor": "#f2f2f2"
+}
+ <!--[bio][set-headline]Rutgers Philosophy of Language Reading Group[bio]-->
+
+# Philosophy of Language Reading Group
+## Fall 2026
+- Week 1: Author, "Paper"
