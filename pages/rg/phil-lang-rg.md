@@ -20,6 +20,8 @@
 
 ## Fall 2026
 
+We meet on DAY OF WEEK at TIME in ROOM or on (Zoom)[https://rutgers.zoom.us/my/cmd537?pwd=1qan6aTwUKBI8ShWaBniabSq9pjZ9f.1]
+
 - Week 1: Author, "Paper"
 - Week 2: Author, "Paper"
 - Week 3: TBA
